@@ -1,14 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
-var app = express();
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    routes = require('./routes/index'),
+    users = require('./routes/users'),
+    url = require('url'),
+    mqtt = require('mqtt'),
+    os = require('os'),
+    app = express(),
+    mqtt_url,
+    auth;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,5 +59,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
+// mqtt init
+mqtt_url = url.parse(process.env.CLOUDMQTT_URL);
 
 module.exports = app;
